@@ -27,27 +27,3 @@
 </div>
 
 ---
-
-## `01` — WHO AM I?
-
-```text
-┌──────────────────────────────────────────────────────────────┐
-│                                                              │
-│  SHREYA AMBASTHA                                             │
-│                                                              │
-│  Computer Science Engineer                                   │
-│  Specialization → Big Data                                   │
-│                                                              │
-│  Focus                                                       │
-│  ├── Full-Stack Development                                  │
-│  ├── Data Engineering                                        │
-│  ├── Machine Learning                                        │
-│  ├── Big Data Analytics                                      │
-│  └── Problem Solving                                         │
-│                                                              │
-│  CURRENT STATUS                                              │
-│  ● Learning                                                  │
-│  ● Building                                                  │
-│  ● Exploring                                                 │
-│                                                              │
-└──────────────────────────────────────────────────────────────┘
