@@ -42,7 +42,7 @@ export default function Home() {
 
           {/* Resume */}
           <a
-  href="/Shreya_Ambastha_Resume.pdf"
+  href="/resume.pdf"
   target="_blank"
   rel="noopener noreferrer"
   className="rounded-full border border-purple-500/60 px-5 py-2 text-sm transition hover:bg-purple-600 hover:shadow-[0_0_25px_rgba(139,92,246,0.35)]"
@@ -449,7 +449,7 @@ export default function Home() {
 
       <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-7">
         <p className="text-4xl font-black text-purple-400">
-          3+
+          1+
         </p>
 
         <p className="mt-2 text-xs tracking-[0.2em] text-gray-500">
@@ -1244,6 +1244,121 @@ export default function Home() {
     </div>
 
   </div>
+  
+      {/* PROJECT 04 — CAREBRIDGE */}
+      <div className="group mt-8 overflow-hidden rounded-[2rem] border border-white/10 bg-[#09090d]">
+        <div className="grid lg:grid-cols-2">
+          {/* Project visual */}
+          <div className="relative min-h-[450px] overflow-hidden bg-gradient-to-br from-emerald-950/30 via-[#09090d] to-purple-950/30">
+            <div
+              className="absolute inset-0 opacity-20"
+              style={{
+                backgroundImage:
+                  "linear-gradient(rgba(52,211,153,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,0.4) 1px, transparent 1px)",
+                backgroundSize: "45px 45px",
+              }}
+            />
+
+            <div className="absolute left-[8%] top-[12%] w-[84%] rounded-2xl border border-emerald-500/20 bg-[#101614]/95 p-5 shadow-2xl backdrop-blur-xl transition duration-500 group-hover:scale-[1.03]">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <span className="text-xs text-gray-400">
+                  CAREBRIDGE / PATHWAY ANALYTICS
+                </span>
+                <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-[10px] text-emerald-400">
+                  ANALYTICS
+                </span>
+              </div>
+
+              <p className="mt-5 text-sm text-gray-400">
+                Clinical pathway overview
+              </p>
+
+              <div className="mt-4 space-y-3">
+                {[
+                  ["Patient pathway analysis", "01"],
+                  ["Deviation detection", "02"],
+                  ["Bottleneck identification", "03"],
+                  ["RAG-based clinical insights", "04"],
+                ].map(([label, number]) => (
+                  <div
+                    key={number}
+                    className="flex items-center gap-3 rounded-xl border border-white/5 bg-black/30 p-3"
+                  >
+                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-xs text-emerald-400">
+                      {number}
+                    </span>
+                    <span className="text-sm text-gray-300">{label}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-5 h-2 overflow-hidden rounded-full bg-white/10">
+                <div className="h-full w-3/4 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-400" />
+              </div>
+              <p className="mt-2 text-xs text-gray-500">
+                Clinical pathway intelligence
+              </p>
+            </div>
+
+            <div className="absolute bottom-8 left-8 text-xs tracking-[0.2em] text-emerald-400">
+              HEALTHCARE / BIG DATA / RAG
+            </div>
+          </div>
+
+          {/* Project content */}
+          <div className="flex flex-col justify-center p-10 lg:p-14">
+            <p className="font-mono text-sm text-emerald-400">
+              PROJECT_04
+            </p>
+
+            <h3 className="mt-5 text-4xl font-black md:text-5xl">
+              CAREBRIDGE
+              <br />
+              Clinical Pathway Analytics
+            </h3>
+
+            <p className="mt-6 leading-7 text-gray-400">
+              A clinical pathway analytics platform that combines medical
+              report extraction, risk analysis and clinical pathway
+              generation with big-data process mining. It analyzes patient
+              event logs to identify pathway deviations, workflow bottlenecks
+              and pathway utilization patterns, with RAG-based retrieval
+              supporting clinical insights.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-2">
+              {[
+                "Python",
+                "FastAPI",
+                "Next.js",
+                "TypeScript",
+                "Pandas",
+                "FAISS",
+                "Sentence Transformers",
+                "Process Mining",
+              ].map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full border border-white/10 px-3 py-2 text-xs text-gray-400"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-10">
+              <a
+                href="https://github.com/ambasthashreya08-commits/Big-Data-Platform-for-Clinical-Pathway-Utilization-Analytics"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-emerald-500/40 px-6 py-3 text-sm transition hover:bg-emerald-600 hover:text-white"
+              >
+                View Project →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 </section>
 
       {/* CERTIFICATIONS & ACHIEVEMENTS */}
