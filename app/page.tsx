@@ -161,23 +161,29 @@ export default function Home() {
             <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-purple-500/20 shadow-[0_0_90px_rgba(139,92,246,0.12)] md:h-[500px] md:w-[500px]" />
             <div className="pointer-events-none absolute left-1/2 top-1/2 h-[270px] w-[270px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-purple-500/10 md:h-[410px] md:w-[410px]" />
 
-            {/* Character remains centered; slight 3D tilt follows the cursor */}
+            {/* Cursor tracking layer: follows the pointer with a subtle 3D tilt */}
             <div
-              className="shreya-float relative z-10 h-full w-full max-w-[820px] scale-[1.06] md:scale-[1.12]"
+              className="relative z-10 h-full w-full max-w-[820px]"
               style={{
                 transform: `perspective(1100px) rotateY(${pointer.x * 12}deg) rotateX(${-pointer.y * 8}deg) translate3d(${pointer.x * 18}px, ${pointer.y * -12}px, 0)`,
-                transition: "transform 120ms ease-out",
+                transition: "transform 140ms ease-out",
                 transformStyle: "preserve-3d",
+                willChange: "transform",
               }}
             >
-              <Image
-                src="/character.png"
-                alt="3D illustrated portrait of Shreya Ambastha"
-                fill
-                priority
-                className="object-contain object-center drop-shadow-[0_12px_55px_rgba(168,85,247,0.30)]"
-                sizes="(max-width: 768px) 100vw, 60vw"
-              />
+              {/* Floating animation is on its own layer so it cannot override cursor tracking */}
+              <div className="shreya-float relative h-full w-full">
+                <div className="relative h-full w-full scale-[1.06] md:scale-[1.12]">
+                  <Image
+                    src="/character.png"
+                    alt="3D illustrated portrait of Shreya Ambastha"
+                    fill
+                    priority
+                    className="object-contain object-center drop-shadow-[0_12px_55px_rgba(168,85,247,0.30)]"
+                    sizes="(max-width: 768px) 100vw, 60vw"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Floating status card */}
@@ -1642,7 +1648,7 @@ export default function Home() {
   href="/drobozone-certificate.pdf"
   target="_blank"
   rel="noopener noreferrer"
-  className="mt-8 ml-2 inline-flex items-center justify-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-300 transition-all duration-300 hover:border-purple-400/60 hover:bg-purple-500/20 hover:text-white"
+  className="mt-4 inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-300 transition-all duration-300 hover:border-purple-400/60 hover:bg-purple-500/20 hover:text-white"
 >
   View Completion Certificate
   <span aria-hidden="true">↗</span>
@@ -1970,18 +1976,6 @@ export default function Home() {
 
   </div>
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-    </main>
+</main>
   );
 }
