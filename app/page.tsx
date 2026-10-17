@@ -10,7 +10,7 @@ export default function Home() {
     <main className="min-h-screen bg-[#050505] text-white">
       
       {/* NAVBAR */}
-      <nav className="pointer-events-none fixed inset-x-0 top-0 z-50">
+      <nav className="pointer-events-none absolute inset-x-0 top-0 z-50">
         <div className="relative mx-auto h-24 max-w-7xl px-6 md:px-8">
 
           {/* Logo stays in the top-left corner */}
@@ -20,7 +20,7 @@ export default function Home() {
           </div>
 
           {/* Floating navigation pill overlaps the character, like the reference */}
-          <div className="pointer-events-auto absolute left-1/2 top-[104px] hidden -translate-x-1/2 items-center gap-5 whitespace-nowrap rounded-full border border-white/15 bg-black/25 px-6 py-3 text-xs text-white/90 shadow-[0_8px_32px_rgba(0,0,0,0.22)] backdrop-blur-md md:left-[58%] md:flex md:gap-7">
+          <div className="pointer-events-auto absolute left-1/2 top-5 hidden -translate-x-1/2 items-center gap-5 whitespace-nowrap rounded-full border border-white/15 bg-black/25 px-6 py-3 text-xs text-white/90 shadow-[0_8px_32px_rgba(0,0,0,0.22)] backdrop-blur-md md:left-[58%] md:flex md:gap-7">
             <a href="#home" className="transition hover:text-white">
               Home
             </a>
@@ -568,7 +568,7 @@ export default function Home() {
   </div>
 ))}
 
-
+          </div>
 
           {/* CATEGORIES */}
           <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -697,7 +697,6 @@ export default function Home() {
           </div>
 
         </div>
-      </div>
       </section>
 
 

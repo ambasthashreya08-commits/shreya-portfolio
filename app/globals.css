@@ -99,3 +99,178 @@ button {
     animation: none !important;
   }
 }
+/* =========================================
+   SKILLS SECTION OVERLAP FIX
+   ========================================= */
+
+.skills-layout {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+  width: 100%;
+  min-width: 0;
+}
+
+.skill-category {
+  position: relative;
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 24px;
+  background: rgba(16, 14, 22, 0.82);
+  overflow-wrap: anywhere;
+}
+
+.skill-category h2,
+.skill-category h3 {
+  margin: 0 0 18px;
+  line-height: 1.4;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  min-height: 36px;
+  padding: 8px 14px;
+  border: 1px solid rgba(168, 85, 247, 0.22);
+  border-radius: 999px;
+  color: #c4d4ee;
+  background: rgba(10, 10, 16, 0.85);
+  font-size: 13px;
+  line-height: 1.4;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Keep floating cards above backgrounds */
+.tech-orbit-card {
+  z-index: 2;
+  max-width: 140px;
+  overflow-wrap: anywhere;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .skills-layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .skill-category {
+    padding: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .skills-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .skill-category {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .skill-tags {
+    gap: 8px;
+  }
+
+  .skill-tag {
+    min-height: 32px;
+    padding: 7px 11px;
+    font-size: 12px;
+  }
+
+  .tech-orbit-card {
+    display: none;
+  }
+}
+/* ===== QUICK OVERLAP FIX ===== */
+
+/* Hide decorative floating technology cards */
+.tech-orbit-card {
+  display: none !important;
+}
+
+/* Keep the main skill panels above decorative backgrounds */
+.skills-panel,
+.skills-layout,
+.skill-category {
+  position: relative;
+  z-index: 1;
+}
+
+/* Prevent skill tags from overflowing their panels */
+.skills-layout {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.skill-category {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+
+/* Leave room for the fixed header */
+main {
+  scroll-margin-top: 90px;
+}
+
+/* Tablet */
+@media (max-width: 1000px) {
+  .skills-layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .skills-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tech-orbit-card {
+    display: none !important;
+  }
+}
+/* Keep the navigation in the normal page layout */
+header,
+.site-header,
+.navbar {
+  position: relative;
+  z-index: 10;
+}
+
+/* Prevent horizontal overflow without changing the theme */
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+img,
+video {
+  max-width: 100%;
+}
