@@ -1642,7 +1642,7 @@ export default function Home() {
   href="/drobozone-certificate.pdf"
   target="_blank"
   rel="noopener noreferrer"
-  className="mt-4 inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-300 transition-all duration-300 hover:border-purple-400/60 hover:bg-purple-500/20 hover:text-white"
+  className="mt-8 ml-2 inline-flex items-center justify-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-300 transition-all duration-300 hover:border-purple-400/60 hover:bg-purple-500/20 hover:text-white"
 >
   View Completion Certificate
   <span aria-hidden="true">↗</span>
