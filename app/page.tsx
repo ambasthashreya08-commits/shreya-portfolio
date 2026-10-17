@@ -1,20 +1,26 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
+
+
 export default function Home() {
+  const [pointer, setPointer] = useState({ x: 0, y: 0 });
   return (
     <main className="min-h-screen bg-[#050505] text-white">
       
       {/* NAVBAR */}
-      <nav className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-5">
+      <nav className="pointer-events-none fixed inset-x-0 top-0 z-50">
+        <div className="relative mx-auto h-24 max-w-7xl px-6 md:px-8">
 
-          {/* Logo */}
-          <div className="text-xl font-bold tracking-widest">
+          {/* Logo stays in the top-left corner */}
+          <div className="pointer-events-auto absolute left-6 top-6 text-xl font-bold tracking-widest md:left-8">
             <span className="text-purple-500">&lt;/&gt;</span>{" "}
             SHREYA
           </div>
 
-          {/* Navigation */}
-          <div className="hidden items-center gap-8 text-sm text-gray-400 md:flex">
+          {/* Floating navigation pill overlaps the character, like the reference */}
+          <div className="pointer-events-auto absolute left-1/2 top-[104px] hidden -translate-x-1/2 items-center gap-5 whitespace-nowrap rounded-full border border-white/15 bg-black/25 px-6 py-3 text-xs text-white/90 shadow-[0_8px_32px_rgba(0,0,0,0.22)] backdrop-blur-md md:left-[58%] md:flex md:gap-7">
             <a href="#home" className="transition hover:text-white">
               Home
             </a>
@@ -40,15 +46,15 @@ export default function Home() {
             </a>
           </div>
 
-          {/* Resume */}
+          {/* Resume stays in the top-right corner */}
           <a
-  href="/resume.pdf"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="rounded-full border border-purple-500/60 px-5 py-2 text-sm transition hover:bg-purple-600 hover:shadow-[0_0_25px_rgba(139,92,246,0.35)]"
->
-  Resume
-</a>
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pointer-events-auto absolute right-6 top-5 rounded-full border border-purple-500/60 px-5 py-2 text-sm transition hover:bg-purple-600 hover:shadow-[0_0_25px_rgba(139,92,246,0.35)] md:right-8"
+          >
+            Resume
+          </a>
         </div>
       </nav>
 
@@ -57,43 +63,58 @@ export default function Home() {
       <section
         id="home"
         className="relative flex min-h-screen items-center overflow-hidden"
+        onMouseMove={(event) => {
+          const rect = event.currentTarget.getBoundingClientRect();
+          const x = Math.max(-0.5, Math.min(0.5, (event.clientX - rect.left) / rect.width - 0.5));
+          const y = Math.max(-0.5, Math.min(0.5, (event.clientY - rect.top) / rect.height - 0.5));
+          setPointer({ x, y });
+        }}
+        onMouseLeave={() => setPointer({ x: 0, y: 0 })}
       >
 
         {/* Background glow */}
         <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-600/10 blur-[120px]" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute z-0 h-64 w-64 rounded-full bg-fuchsia-500/[0.07] blur-[90px]"
+          style={{
+            left: `calc(50% + ${pointer.x * 180}px)`,
+            top: `calc(50% + ${pointer.y * 150}px)`,
+            transform: "translate(-50%, -50%)",
+            transition: "left 120ms ease-out, top 120ms ease-out",
+          }}
+        />
 
-        <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-8 pt-24 md:grid-cols-2">
+        <div className="relative z-10 mx-auto min-h-screen w-full max-w-7xl px-6 pt-24 md:px-8">
 
-          {/* LEFT SIDE */}
-          <div>
+          {/* LEFT SIDE — text stays on the left while the character overlaps the center */}
+          <div className="relative z-20 flex min-h-[calc(100vh-6rem)] max-w-[540px] flex-col justify-center pb-12 md:w-[48%]">
 
-            <p className="mb-5 text-sm font-medium tracking-[0.3em] text-purple-400">
-              HELLO, I'M
+            <p className="mb-3 text-3xl font-medium leading-tight tracking-tight text-purple-300 md:text-4xl">
+              Hello, I&apos;m
             </p>
 
-            <h1 className="text-6xl font-black leading-[0.95] tracking-tight md:text-8xl">
-              SHREYA
-              <br />
-
-              <span className="bg-gradient-to-r from-purple-400 via-fuchsia-500 to-purple-700 bg-clip-text text-transparent">
-                AMBASTHA
+            <h1 className="text-5xl font-extrabold leading-[0.94] tracking-[-0.045em] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
+              <span className="block text-white">Shreya</span>
+              <span className="mt-1 block bg-gradient-to-r from-purple-300 via-fuchsia-400 to-purple-600 bg-clip-text text-transparent">
+                Ambastha
               </span>
             </h1>
 
-            <div className="mt-8 inline-block rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-gray-300 backdrop-blur">
+            <div className="mt-6 inline-block max-w-full rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-gray-300 backdrop-blur">
               Computer Science Engineer{" "}
               <span className="text-purple-400">×</span>{" "}
-              Big Data Enthusiast
+              Tech Enthusiast
             </div>
 
-            <p className="mt-6 max-w-xl text-lg leading-8 text-gray-400">
+            <p className="mt-5 max-w-lg text-base leading-7 text-gray-400 md:text-lg md:leading-8">
               I build modern web applications, work with data,
               explore machine learning, and turn ideas into
               meaningful digital experiences.
             </p>
 
             {/* Buttons */}
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-7 flex flex-wrap gap-4">
 
               <a
                 href="#projects"
@@ -112,7 +133,7 @@ export default function Home() {
             </div>
 
             {/* Social links */}
-            <div className="mt-8 flex gap-6 text-sm text-gray-500">
+            <div className="mt-6 flex gap-6 text-sm text-gray-500">
               <span className="cursor-pointer transition hover:text-purple-400">
                 GitHub
               </span>
@@ -129,77 +150,51 @@ export default function Home() {
           </div>
 
 
-          {/* RIGHT SIDE — 3D AREA */}
-          <div className="relative flex h-[600px] items-center justify-center">
+          {/* CENTER CHARACTER — layered over the hero, like the reference */}
+          <div
+            className="pointer-events-auto absolute left-[25%] top-[54%] z-10 flex h-[88vh] min-h-[480px] w-[78%] -translate-y-1/2 items-center justify-center md:left-[27%] md:top-[54%] md:h-[108vh] md:w-[74%]"
+          >
+            {/* Purple atmosphere stays behind the transparent character */}
+            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-600/20 blur-[100px] md:h-[480px] md:w-[480px]" />
 
-            {/* Large glowing circle */}
-            <div className="absolute h-[420px] w-[420px] rounded-full border border-purple-500/20 shadow-[0_0_100px_rgba(139,92,246,0.15)]" />
+            {/* Subtle orbit rings matching the portfolio theme */}
+            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-purple-500/20 shadow-[0_0_90px_rgba(139,92,246,0.12)] md:h-[500px] md:w-[500px]" />
+            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[270px] w-[270px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-purple-500/10 md:h-[410px] md:w-[410px]" />
 
-            <div className="relative flex h-[650px] w-full items-center justify-center">
-
-              {/* Purple atmosphere */}
-              <div className="absolute h-[500px] w-[500px] rounded-full bg-purple-600/20 blur-[120px]" />
-
-              {/* Outer orbit */}
-              <div className="absolute h-[520px] w-[520px] rounded-full border border-purple-500/20" />
-
-              <div className="absolute h-[420px] w-[420px] rounded-full border border-purple-500/10" />
-
-              {/* Image container */}
-              <div className="shreya-float group relative z-10 h-[620px] w-full overflow-hidden">
-
-                <Image
-                  src="/shreya-laptop.png"
-                  alt="Shreya Ambastha - Computer Science Engineer"
-                  fill
-                  priority
-                  className="object-contain object-center transition duration-700 group-hover:scale-[1.02]"
-                  sizes="(max-width: 768px) 100vw, 55vw"
-                />
-
-                {/* Purple lighting overlay */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
-
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-transparent opacity-70" />
-
-              </div>
-
-              {/* Floating status card */}
-              <div className="absolute right-0 top-20 z-20 rounded-2xl border border-purple-500/20 bg-[#0b0b10]/80 p-4 shadow-[0_0_30px_rgba(139,92,246,0.12)] backdrop-blur-xl">
-
-                <div className="flex items-center gap-2">
-
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
-
-                  <span className="text-xs text-gray-400">
-                    AVAILABLE
-                  </span>
-
-                </div>
-
-                <p className="mt-2 text-sm font-medium">
-                  For opportunities
-                </p>
-
-              </div>
-
-              {/* Floating CODE card */}
-              <div className="absolute bottom-24 left-0 z-20 rounded-2xl border border-purple-500/20 bg-[#111116]/80 p-4 shadow-xl backdrop-blur">
-
-                <span className="text-xs text-purple-400">
-                  &lt;/&gt;
-                </span>
-
-                <p className="mt-1 text-sm text-gray-300">
-                  Building & learning
-                </p>
-
-              </div>
-
+            {/* Character remains centered; slight 3D tilt follows the cursor */}
+            <div
+              className="shreya-float relative z-10 h-full w-full max-w-[820px] scale-[1.06] md:scale-[1.12]"
+              style={{
+                transform: `perspective(1100px) rotateY(${pointer.x * 12}deg) rotateX(${-pointer.y * 8}deg) translate3d(${pointer.x * 18}px, ${pointer.y * -12}px, 0)`,
+                transition: "transform 120ms ease-out",
+                transformStyle: "preserve-3d",
+              }}
+            >
+              <Image
+                src="/character.png"
+                alt="3D illustrated portrait of Shreya Ambastha"
+                fill
+                priority
+                className="object-contain object-center drop-shadow-[0_12px_55px_rgba(168,85,247,0.30)]"
+                sizes="(max-width: 768px) 100vw, 60vw"
+              />
             </div>
 
-          </div>
+            {/* Floating status card */}
+            <div className="absolute right-0 top-20 z-20 rounded-2xl border border-purple-500/20 bg-[#0b0b10]/85 p-4 shadow-[0_0_30px_rgba(139,92,246,0.12)] backdrop-blur-xl md:right-1 md:top-24">
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
+                <span className="text-xs text-gray-400">AVAILABLE</span>
+              </div>
+              <p className="mt-2 text-sm font-medium">For opportunities</p>
+            </div>
 
+            {/* Floating code card */}
+            <div className="absolute bottom-6 left-[42%] z-20 rounded-2xl border border-purple-500/20 bg-[#111116]/85 p-4 shadow-xl backdrop-blur md:bottom-16 md:left-[40%]">
+              <span className="text-xs text-purple-400">&lt;/&gt;</span>
+              <p className="mt-1 text-sm text-gray-300">Building &amp; learning</p>
+            </div>
+          </div>
         </div>
 
       </section>
@@ -278,7 +273,7 @@ export default function Home() {
 
             <div className="rounded-2xl border border-white/5 bg-black/30 p-5">
               <p className="text-3xl font-bold text-white">
-                03+
+                01+
               </p>
 
               <p className="mt-2 text-xs tracking-wider text-gray-500">
@@ -525,146 +520,54 @@ export default function Home() {
             {/* Central glow */}
             <div className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-600/10 blur-[100px]" />
 
-            {/* Central node */}
-            <div className="absolute left-1/2 top-1/2 z-20 flex h-40 w-40 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-purple-500/40 bg-[#0d0b13] shadow-[0_0_80px_rgba(139,92,246,0.2)]">
+           
+{/* CENTRAL NODE */}
+<div className="absolute left-1/2 top-1/2 z-20 flex h-40 w-40 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-purple-500/40 bg-[#0d0b13] shadow-[0_0_80px_rgba(139,92,246,0.2)]">
+  <div className="text-center">
+    <p className="text-xs tracking-[0.3em] text-purple-400">CORE</p>
+    <p className="mt-2 text-2xl font-black">SHREYA</p>
+    <p className="mt-1 text-[10px] text-gray-500">
+      AI + FULL STACK
+    </p>
+  </div>
+</div>
 
-              <div className="text-center">
+{/* ORBIT RINGS */}
+<div className="absolute left-1/2 top-1/2 h-[350px] w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-purple-500/10" />
+<div className="absolute left-1/2 top-1/2 h-[550px] w-[550px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-purple-500/10" />
 
-                <p className="text-xs tracking-[0.3em] text-purple-400">
-                  CORE
-                </p>
+{/* FLOATING TECHNOLOGY CARDS */}
+{[
+  { name: "JavaScript", icon: "JS", color: "yellow", position: "left-[10%] top-[12%]", delay: "0s" },
+  { name: "React", icon: "⚛", color: "cyan", position: "right-[10%] top-[12%]", delay: "-2s" },
+  { name: "Python", icon: "PY", color: "blue", position: "left-[5%] top-[42%]", delay: "-4s" },
+  { name: "Java", icon: "JV", color: "orange", position: "right-[5%] top-[42%]", delay: "-1s" },
+  { name: "Next.js", icon: "N", color: "gray", position: "left-[14%] bottom-[12%]", delay: "-3s" },
+  { name: "Node.js", icon: "JS", color: "green", position: "right-[14%] bottom-[12%]", delay: "-5s" },
+  { name: "LLMs", icon: "AI", color: "purple", position: "left-[29%] top-[8%]", delay: "-2.5s" },
+  { name: "RAG", icon: "R", color: "purple", position: "right-[29%] top-[8%]", delay: "-4.5s" },
+  { name: "NLP", icon: "NLP", color: "pink", position: "left-[27%] bottom-[8%]", delay: "-1.5s" },
+  { name: "AI Agents", icon: "AG", color: "purple", position: "right-[27%] bottom-[8%]", delay: "-3.5s" },
+  { name: "TypeScript", icon: "TS", color: "blue", position: "left-[40%] top-[3%]", delay: "-1s" },
+  { name: "Docker", icon: "DK", color: "cyan", position: "right-[40%] bottom-[3%]", delay: "-4s" },
+  { name: "MongoDB", icon: "DB", color: "green", position: "left-1/2 bottom-[7%] -translate-x-1/2", delay: "-2s" },
+].map((tech) => (
+  <div
+    key={tech.name}
+    className={`absolute z-10 ${tech.position}`}
+    style={{
+      animation: `techFloat 5s ease-in-out ${tech.delay} infinite`,
+    }}
+  >
+    <div className="group cursor-pointer rounded-2xl border border-white/10 bg-[#101016]/95 px-4 py-3 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-purple-400/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.18)]">
+      <p className="text-xs text-purple-400">{tech.icon}</p>
+      <p className="mt-1 whitespace-nowrap text-sm font-semibold text-white">
+        {tech.name}
+      </p>
+    </div>
+  </div>
+))}
 
-                <p className="mt-2 text-2xl font-black">
-                  SHREYA
-                </p>
-
-                <p className="mt-1 text-[10px] text-gray-600">
-                  ENGINEERING STACK
-                </p>
-
-              </div>
-
-            </div>
-
-
-            {/* ORBIT RINGS */}
-            <div className="absolute left-1/2 top-1/2 h-[350px] w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-purple-500/10" />
-
-            <div className="absolute left-1/2 top-1/2 h-[550px] w-[550px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-purple-500/10" />
-
-
-            {/* JAVASCRIPT */}
-            <div className="absolute left-[10%] top-[15%]">
-              <div className="group cursor-pointer rounded-2xl border border-white/10 bg-[#101016]/90 px-5 py-4 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:border-yellow-400/40 hover:shadow-[0_0_30px_rgba(250,204,21,0.12)]">
-
-                <p className="text-xs text-yellow-400">
-                  JS
-                </p>
-
-                <p className="mt-1 font-semibold">
-                  JavaScript
-                </p>
-
-              </div>
-            </div>
-
-
-            {/* REACT */}
-            <div className="absolute right-[10%] top-[15%]">
-              <div className="group cursor-pointer rounded-2xl border border-white/10 bg-[#101016]/90 px-5 py-4 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:border-cyan-400/40 hover:shadow-[0_0_30px_rgba(34,211,238,0.12)]">
-
-                <p className="text-xs text-cyan-400">
-                  ⚛
-                </p>
-
-                <p className="mt-1 font-semibold">
-                  React
-                </p>
-
-              </div>
-            </div>
-
-
-            {/* PYTHON */}
-            <div className="absolute left-[5%] top-[45%]">
-              <div className="group cursor-pointer rounded-2xl border border-white/10 bg-[#101016]/90 px-5 py-4 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:border-blue-400/40 hover:shadow-[0_0_30px_rgba(96,165,250,0.12)]">
-
-                <p className="text-xs text-blue-400">
-                  PY
-                </p>
-
-                <p className="mt-1 font-semibold">
-                  Python
-                </p>
-
-              </div>
-            </div>
-
-
-            {/* JAVA */}
-            <div className="absolute right-[5%] top-[45%]">
-              <div className="group cursor-pointer rounded-2xl border border-white/10 bg-[#101016]/90 px-5 py-4 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:border-orange-400/40 hover:shadow-[0_0_30px_rgba(251,146,60,0.12)]">
-
-                <p className="text-xs text-orange-400">
-                  JV
-                </p>
-
-                <p className="mt-1 font-semibold">
-                  Java
-                </p>
-
-              </div>
-            </div>
-
-
-            {/* NEXT JS */}
-            <div className="absolute bottom-[15%] left-[14%]">
-              <div className="group cursor-pointer rounded-2xl border border-white/10 bg-[#101016]/90 px-5 py-4 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:border-white/40 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-
-                <p className="text-xs text-gray-300">
-                  N
-                </p>
-
-                <p className="mt-1 font-semibold">
-                  Next.js
-                </p>
-
-              </div>
-            </div>
-
-
-            {/* NODE */}
-            <div className="absolute bottom-[15%] right-[14%]">
-              <div className="group cursor-pointer rounded-2xl border border-white/10 bg-[#101016]/90 px-5 py-4 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:border-green-400/40 hover:shadow-[0_0_30px_rgba(74,222,128,0.12)]">
-
-                <p className="text-xs text-green-400">
-                  JS
-                </p>
-
-                <p className="mt-1 font-semibold">
-                  Node.js
-                </p>
-
-              </div>
-            </div>
-
-
-            {/* MONGODB */}
-            <div className="absolute bottom-[7%] left-1/2 -translate-x-1/2">
-              <div className="group cursor-pointer rounded-2xl border border-white/10 bg-[#101016]/90 px-5 py-4 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:border-green-500/40 hover:shadow-[0_0_30px_rgba(34,197,94,0.12)]">
-
-                <p className="text-xs text-green-400">
-                  DB
-                </p>
-
-                <p className="mt-1 font-semibold">
-                  MongoDB
-                </p>
-
-              </div>
-            </div>
-
-          </div>
 
 
           {/* CATEGORIES */}
@@ -794,7 +697,8 @@ export default function Home() {
           </div>
 
         </div>
-            </section>
+      </div>
+      </section>
 
 
       
@@ -1301,7 +1205,7 @@ export default function Home() {
             </div>
 
             <div className="absolute bottom-8 left-8 text-xs tracking-[0.2em] text-emerald-400">
-              HEALTHCARE / BIG DATA / RAG
+              HEALTHCARE / AI-ML / RAG
             </div>
           </div>
 
@@ -1733,6 +1637,19 @@ export default function Home() {
           <div className="mt-8 inline-flex rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-xs text-purple-300">
             WEB DEVELOPMENT
           </div>
+          
+
+<a
+  href="/drobozone-certificate.pdf"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="mt-4 inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-300 transition-all duration-300 hover:border-purple-400/60 hover:bg-purple-500/20 hover:text-white"
+>
+  View Completion Certificate
+  <span aria-hidden="true">↗</span>
+</a>
+
+
 
         </div>
 
